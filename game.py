@@ -115,6 +115,7 @@ class SnakeGameAI:
         if self.is_collision() or self.frame_iteration > 100 * len(self.snake):
             game_over = True
             reward += COLLISION_REWARD
+            self.last_head_position = self.head
             return reward, game_over, self.score
 
         prev_dist_to_food = math.sqrt((self.food.x - self.last_head_position.x)**2 +
@@ -135,6 +136,7 @@ class SnakeGameAI:
 
         self._update_ui()
         self.clock.tick(SPEED)
+        self.last_head_position = self.head
         return reward, game_over, self.score
 
     def is_collision(self, pt=None):
